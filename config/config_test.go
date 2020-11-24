@@ -711,6 +711,7 @@ var expectedConf = &Config{
 					Host:            "http://example.uyuni-project.org",
 					User:            "gopher",
 					Pass:            "hole",
+					Formulas:        []string{"prometheus-exporters"},
 					RefreshInterval: model.Duration(60 * time.Second),
 				},
 			},
@@ -784,7 +785,7 @@ func TestElideSecrets(t *testing.T) {
 	yamlConfig := string(config)
 
 	matches := secretRe.FindAllStringIndex(yamlConfig, -1)
-	require.Equal(t, 10, len(matches), "wrong number of secret matches found")
+	require.Equal(t, 11, len(matches), "wrong number of secret matches found")
 	require.NotContains(t, yamlConfig, "mysecret",
 		"yaml marshal reveals authentication credentials.")
 }
